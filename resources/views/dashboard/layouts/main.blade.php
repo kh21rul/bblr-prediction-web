@@ -6,6 +6,9 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>SiKecilSehat - {{ $title }}</title>
 
+    <!-- Favicon -->
+    <link href="{{ asset('img/favicon.png') }}" rel="icon">
+
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('dashmin/modules/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dashmin/modules/fontawesome/css/all.min.css') }}">

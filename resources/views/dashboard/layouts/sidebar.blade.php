@@ -29,7 +29,7 @@
                     <li class="{{ Request::is('dashboard/dataujis/create') ? 'active' : '' }}"><a class="nav-link"
                             href="#">Tambah Data Uji</a></li>
                     <li class="{{ Request::is('dashboard/dataujis') ? 'active' : '' }}"><a class="nav-link"
-                            href="#">Data Uji</a></li>
+                            href="{{ route('dashboard.dataujis.index') }}">Data Uji</a></li>
                 </ul>
             </li>
             <li class="menu-header">Akses</li>

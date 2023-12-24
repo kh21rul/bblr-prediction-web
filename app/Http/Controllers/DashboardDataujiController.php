@@ -12,7 +12,10 @@ class DashboardDataujiController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.dataujis.index', [
+            'title' => 'Data Uji',
+            'dataujis' => Datauji::latest()->get(),
+        ]);
     }
 
     /**
@@ -60,6 +63,8 @@ class DashboardDataujiController extends Controller
      */
     public function destroy(Datauji $datauji)
     {
-        //
+        Datauji::destroy($datauji->id);
+
+        return redirect()->route('dashboard.dataujis.index')->with('success', 'Data uji berhasil dihapus');
     }
 }

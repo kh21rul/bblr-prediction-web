@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Dataset;
 
-class DasasetSeeder extends Seeder
+class DatasetSeeder extends Seeder
 {
     /**
      * Run the database seeds.

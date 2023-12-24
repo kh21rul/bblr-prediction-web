@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Datauji;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
@@ -21,7 +23,9 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('anindya123'),
         ]);
 
+        Datauji::factory(30)->create();
+
         // panggil seeder DasasetSeeder
-        $this->call(DasasetSeeder::class);
+        $this->call(DatasetSeeder::class);
     }
 }
