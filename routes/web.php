@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardDatasetController;
+use App\Http\Controllers\DashboardDataujiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +27,22 @@ Route::controller(LoginController::class)->group(function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+
+Route::resource('/dashboard/datasets', DashboardDatasetController::class)->middleware('auth')->except('show')->names([
+    'index' => 'dashboard.datasets.index',
+    'create' => 'dashboard.datasets.create',
+    'store' => 'dashboard.datasets.store',
+    'edit' => 'dashboard.datasets.edit',
+    'update' => 'dashboard.datasets.update',
+    'destroy' => 'dashboard.datasets.destroy',
+]);
+
+Route::resource('/dashboard/dataujis', DashboardDataujiController::class)->middleware('auth')->names([
+    'index' => 'dashboard.dataujis.index',
+    'create' => 'dashboard.dataujis.create',
+    'store' => 'dashboard.dataujis.store',
+    'show' => 'dashboard.dataujis.show',
+    'edit' => 'dashboard.dataujis.edit',
+    'update' => 'dashboard.dataujis.update',
+    'destroy' => 'dashboard.dataujis.destroy',
+]);

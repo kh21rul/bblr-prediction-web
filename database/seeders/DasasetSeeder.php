@@ -19,7 +19,7 @@ class DasasetSeeder extends Seeder
                 'umur' => '36',
                 'lila' => '24',
                 'tinggi' => '150',
-                'bblr_nb' => false,
+                'bblr' => false,
             ],
         );
         Dataset::factory()->create(
@@ -28,7 +28,7 @@ class DasasetSeeder extends Seeder
                 'umur' => '26',
                 'lila' => '25.6',
                 'tinggi' => '155',
-                'bblr_nb' => false,
+                'bblr' => false,
             ],
         );
         Dataset::factory()->create(
@@ -37,7 +37,7 @@ class DasasetSeeder extends Seeder
                 'umur' => '24',
                 'lila' => '24.5',
                 'tinggi' => '150',
-                'bblr_nb' => false,
+                'bblr' => false,
             ],
         );
         Dataset::factory()->create(
@@ -46,7 +46,7 @@ class DasasetSeeder extends Seeder
                 'umur' => '34',
                 'lila' => '25',
                 'tinggi' => '150',
-                'bblr_nb' => false,
+                'bblr' => false,
             ],
         );
         Dataset::factory()->create(
@@ -55,7 +55,7 @@ class DasasetSeeder extends Seeder
                 'umur' => '19',
                 'lila' => '25.5',
                 'tinggi' => '150',
-                'bblr_nb' => true,
+                'bblr' => true,
             ],
         );
         Dataset::factory()->create(
@@ -64,7 +64,7 @@ class DasasetSeeder extends Seeder
                 'umur' => '20',
                 'lila' => '26.5',
                 'tinggi' => '155',
-                'bblr_nb' => true,
+                'bblr' => true,
             ],
         );
         Dataset::factory()->create(
@@ -73,7 +73,7 @@ class DasasetSeeder extends Seeder
                 'umur' => '38',
                 'lila' => '33',
                 'tinggi' => '155',
-                'bblr_nb' => true,
+                'bblr' => true,
             ],
         );
         Dataset::factory()->create(
@@ -82,7 +82,7 @@ class DasasetSeeder extends Seeder
                 'umur' => '34',
                 'lila' => '26',
                 'tinggi' => '151',
-                'bblr_nb' => true,
+                'bblr' => true,
             ],
         );
         Dataset::factory()->create(
@@ -91,7 +91,7 @@ class DasasetSeeder extends Seeder
                 'umur' => '33',
                 'lila' => '27',
                 'tinggi' => '150',
-                'bblr_nb' => true,
+                'bblr' => true,
             ],
         );
         Dataset::factory()->create(
@@ -100,7 +100,7 @@ class DasasetSeeder extends Seeder
                 'umur' => '27',
                 'lila' => '24.5',
                 'tinggi' => '155',
-                'bblr_nb' => false,
+                'bblr' => false,
             ],
         );
     }

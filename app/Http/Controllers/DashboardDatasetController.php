@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dataset;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 
 class DashboardDatasetController extends Controller
@@ -12,7 +13,13 @@ class DashboardDatasetController extends Controller
      */
     public function index()
     {
-        //
+        return view(
+            'dashboard.datasets.index',
+            [
+                'title' => 'Dataset',
+                'datasets' => Dataset::latest()->get(),
+            ]
+        );
     }
 
     /**
@@ -20,7 +27,12 @@ class DashboardDatasetController extends Controller
      */
     public function create()
     {
-        //
+        return view(
+            'dashboard.datasets.create',
+            [
+                'title' => 'Tambah Dataset',
+            ]
+        );
     }
 
     /**
@@ -28,7 +40,16 @@ class DashboardDatasetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required|max:255',
+            'umur' => 'required|numeric',
+            'lila' => 'required|numeric',
+            'tinggi' => 'required|numeric',
+        ]);
+
+        Dataset::create($validatedData);
+
+        return redirect()->route('dashboard.datasets.index')->with('success', 'Data Ibu berhasil ditambahkan');
     }
 
     /**
@@ -44,7 +65,13 @@ class DashboardDatasetController extends Controller
      */
     public function edit(Dataset $dataset)
     {
-        //
+        return view(
+            'dashboard.datasets.edit',
+            [
+                'title' => 'Edit Dataset',
+                'dataset' => $dataset,
+            ]
+        );
     }
 
     /**
@@ -52,7 +79,16 @@ class DashboardDatasetController extends Controller
      */
     public function update(Request $request, Dataset $dataset)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required|max:255',
+            'umur' => 'required|numeric',
+            'lila' => 'required|numeric',
+            'tinggi' => 'required|numeric',
+        ]);
+
+        $dataset->update($validatedData);
+
+        return redirect()->route('dashboard.datasets.index')->with('success', 'Data Ibu berhasil diperbarui');
     }
 
     /**
@@ -60,6 +96,8 @@ class DashboardDatasetController extends Controller
      */
     public function destroy(Dataset $dataset)
     {
-        //
+        Dataset::destroy($dataset->id);
+
+        return redirect()->route('dashboard.datasets.index')->with('success', 'Data Ibu berhasil dihapus');
     }
 }

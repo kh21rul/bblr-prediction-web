@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('datasets', function (Blueprint $table) {
+        Schema::create('dataujis', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->string('umur');
             $table->string('lila');
             $table->string('tinggi');
-            $table->boolean('bblr')->default(false);
+            $table->boolean('bblr_nb')->default(false);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('datasets');
+        Schema::dropIfExists('dataujis');
     }
 };

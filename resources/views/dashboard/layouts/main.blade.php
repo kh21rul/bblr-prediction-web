@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="{{ asset('dashmin/modules/weather-icon/css/weather-icons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dashmin/modules/weather-icon/css/weather-icons-wind.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dashmin/modules/summernote/summernote-bs4.css') }}">
+    <link rel="stylesheet" href="{{ asset('dashmin/modules/datatables/datatables.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('dashmin/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dashmin/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('dashmin/css/style.css') }}">
@@ -64,9 +68,14 @@
     <script src="{{ asset('dashmin/modules/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
     <script src="{{ asset('dashmin/modules/summernote/summernote-bs4.js') }}"></script>
     <script src="{{ asset('dashmin/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
+    <script src="{{ asset('dashmin/modules/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('dashmin/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('dashmin/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
+    <script src="{{ asset('dashmin/modules/jquery-ui/jquery-ui.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('dashmin/js/page/index-0.js') }}"></script>
+    <script src="{{ asset('dashmin/js/page/modules-datatables.js') }}"></script>
 
     <!-- Template JS File -->
     <script src="{{ asset('dashmin/js/scripts.js') }}"></script>
