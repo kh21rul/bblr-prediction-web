@@ -47,6 +47,12 @@ class DashboardDatasetController extends Controller
             'tinggi' => 'required|numeric',
         ]);
 
+        if ($request->has('bblr')) {
+            $validatedData['bblr'] = true;
+        } else {
+            $validatedData['bblr'] = false;
+        }
+
         Dataset::create($validatedData);
 
         return redirect()->route('dashboard.datasets.index')->with('success', 'Data Ibu berhasil ditambahkan');
@@ -85,6 +91,12 @@ class DashboardDatasetController extends Controller
             'lila' => 'required|numeric',
             'tinggi' => 'required|numeric',
         ]);
+
+        if ($request->has('bblr')) {
+            $validatedData['bblr'] = true;
+        } else {
+            $validatedData['bblr'] = false;
+        }
 
         $dataset->update($validatedData);
 

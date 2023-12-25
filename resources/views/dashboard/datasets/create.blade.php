@@ -78,6 +78,21 @@
                                                 class="form-control @error('tinggi') is-invalid @enderror">
                                         </div>
                                     </div>
+                                    <div class="form-group mb-4">
+                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
+                                            for="bblr">Teridentifikasi BBLR</label>
+                                        <label class="custom-switch mt-2" for="bblr">
+                                            @if (old('bblr') == 1)
+                                                <input type="checkbox" id="bblr" name="bblr"
+                                                    class="custom-switch-input" value="1" checked>
+                                            @else
+                                                <input type="checkbox" id="bblr" name="bblr"
+                                                    class="custom-switch-input" value="1">
+                                            @endif
+                                            <span class="custom-switch-indicator"></span>
+                                            <span class="custom-switch-description">Geser jika teridentifikasi</span>
+                                        </label>
+                                    </div>
                                     <div class="form-group row mb-4">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                                         <div class="col-sm-12 col-md-7">
