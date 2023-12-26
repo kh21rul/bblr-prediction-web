@@ -27,14 +27,14 @@
                     <span>Data Uji</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ Request::is('dashboard/dataujis/create') ? 'active' : '' }}"><a class="nav-link"
-                            href="#">Tambah Data Uji</a></li>
+                            href="{{ route('dashboard.dataujis.create') }}">Tambah Data Uji</a></li>
                     <li class="{{ Request::is('dashboard/dataujis') ? 'active' : '' }}"><a class="nav-link"
                             href="{{ route('dashboard.dataujis.index') }}">Data Uji</a></li>
                 </ul>
             </li>
             <li class="menu-header">Akses</li>
             <li class="dropdown">
-                <a href="{{ route('logout') }}" data-toggle="dropdown"><i class="fas fa-sign-out-alt"></i>
+                <a href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i>
                     <span>Logout</span></a>
             </li>
         </ul>

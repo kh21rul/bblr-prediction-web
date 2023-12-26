@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <form action="{{ route('dashboard.datasets.store') }}" method="POST">
+                            <form action="{{ route('dashboard.dataujis.store') }}" method="POST">
                                 @csrf
                                 <div class="card-header">
                                     <h4>Form Tambah Data Uji</h4>

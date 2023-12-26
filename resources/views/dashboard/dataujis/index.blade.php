@@ -67,9 +67,9 @@
                                                                 data-toggle="tooltip" title="Edit">
                                                                 <i class="fas fa-pencil-alt"></i>
                                                             </a>
-                                                            <a href="{{ route('dashboard.dataujis.show', $datauji->id) }}"
-                                                                type="button" class="btn btn-info btn-action mr-1"
-                                                                data-toggle="tooltip" title="Detail">
+                                                            <a href="#" type="button"
+                                                                class="btn btn-info btn-action mr-1" data-toggle="tooltip"
+                                                                title="Detail">
                                                                 <i class="fas fa-eye"></i>
                                                             </a>
                                                             <form id="delete"

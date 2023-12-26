@@ -37,11 +37,10 @@ Route::resource('/dashboard/datasets', DashboardDatasetController::class)->middl
     'destroy' => 'dashboard.datasets.destroy',
 ]);
 
-Route::resource('/dashboard/dataujis', DashboardDataujiController::class)->middleware('auth')->names([
+Route::resource('/dashboard/dataujis', DashboardDataujiController::class)->middleware('auth')->except('show')->names([
     'index' => 'dashboard.dataujis.index',
     'create' => 'dashboard.dataujis.create',
     'store' => 'dashboard.dataujis.store',
-    'show' => 'dashboard.dataujis.show',
     'edit' => 'dashboard.dataujis.edit',
     'update' => 'dashboard.dataujis.update',
     'destroy' => 'dashboard.dataujis.destroy',
