@@ -42,7 +42,7 @@ class DashboardDataujiController extends Controller
             'tinggi' => 'required|numeric',
         ]);
 
-        // Start Naive Bayes
+        // -- Start Naive Bayes --
         // probabilitas C1
         // C1 Ya
         $mean_umur_ya = Dataset::where('bblr', true)->avg('umur');
@@ -95,9 +95,83 @@ class DashboardDataujiController extends Controller
         // normalisasi
         $validatedData['pbb_ya_nb'] = $likelihood_ya / ($likelihood_ya + $likelihood_tidak);
         $validatedData['pbb_tidak_nb'] = $likelihood_tidak / ($likelihood_ya + $likelihood_tidak);
-        // End Naive Bayes
 
+        // klasifikasi
         $validatedData['bblr_nb'] = $validatedData['pbb_ya_nb'] > $validatedData['pbb_tidak_nb'] ? true : false;
+        // -- End Naive Bayes --
+
+        // -- Start C4.5 --
+        // cari mean dan median untuk nilai numerik
+        $mean_umur = Dataset::avg('umur');
+        $umur_values = Dataset::pluck('umur')->toArray();
+        sort($umur_values);
+        $count = count($umur_values);
+        if ($count % 2 == 0) {
+            $median_umur = ($umur_values[($count / 2) - 1] + $umur_values[$count / 2]) / 2;
+        } else {
+            $median_umur = $umur_values[floor($count / 2)];
+        }
+
+        $mean_lila = Dataset::avg('lila');
+        $lila_values = Dataset::pluck('lila')->toArray();
+        sort($lila_values);
+        $count = count($lila_values);
+        if ($count % 2 == 0) {
+            $median_lila = ($lila_values[($count / 2) - 1] + $lila_values[$count / 2]) / 2;
+        } else {
+            $median_lila = $lila_values[floor($count / 2)];
+        }
+
+        $mean_tinggi = Dataset::avg('tinggi');
+        $tinggi_values = Dataset::pluck('tinggi')->toArray();
+        sort($tinggi_values);
+        $count = count($tinggi_values);
+        if ($count % 2 == 0) {
+            $median_tinggi = ($tinggi_values[($count / 2) - 1] + $tinggi_values[$count / 2]) / 2;
+        } else {
+            $median_tinggi = $tinggi_values[floor($count / 2)];
+        }
+
+        // menghitung entropy dan gain ratio
+        // total kasus
+        $total_kasus = Dataset::count();
+        $total_ya_bblr = Dataset::where('bblr', true)->count();
+        $total_tidak_bblr = Dataset::where('bblr', false)->count();
+        $entropy_total_bblr = - (($total_ya_bblr / $total_kasus) * log($total_ya_bblr / $total_kasus, 2)) - (($total_tidak_bblr / $total_kasus) * log($total_tidak_bblr / $total_kasus, 2));
+
+        // umur
+        $umur_dbwah_mean = Dataset::where('umur', '<=', $mean_umur)->count();
+        $umur_dbwah_mean_ya = Dataset::where('umur', '<=', $mean_umur)->where('bblr', true)->count();
+        $umur_dbwah_mean_tidak = Dataset::where('umur', '<=', $mean_umur)->where('bblr', false)->count();
+        $entropy_umur_dbwah_mean = - (($umur_dbwah_mean_ya / $umur_dbwah_mean) * log($umur_dbwah_mean_ya / $umur_dbwah_mean, 2)) - (($umur_dbwah_mean_tidak / $umur_dbwah_mean) * log($umur_dbwah_mean_tidak / $umur_dbwah_mean, 2));
+        $umur_datas_mean = Dataset::where('umur', '>', $mean_umur)->count();
+        $umur_datas_mean_ya = Dataset::where('umur', '>', $mean_umur)->where('bblr', true)->count();
+        $umur_datas_mean_tidak = Dataset::where('umur', '>', $mean_umur)->where('bblr', false)->count();
+        $entropy_umur_datas_mean = - (($umur_datas_mean_ya / $umur_datas_mean) * log($umur_datas_mean_ya / $umur_datas_mean, 2)) - (($umur_datas_mean_tidak / $umur_datas_mean) * log($umur_datas_mean_tidak / $umur_datas_mean, 2));
+        $gain_umur_mean = $entropy_total_bblr - (($umur_dbwah_mean / $total_kasus) * $entropy_umur_dbwah_mean) - (($umur_datas_mean / $total_kasus) * $entropy_umur_datas_mean);
+
+        // lila
+        $lila_dbwah_mean = Dataset::where('lila', '<=', $mean_lila)->count();
+        $lila_dbwah_mean_ya = Dataset::where('lila', '<=', $mean_lila)->where('bblr', true)->count();
+        $lila_dbwah_mean_tidak = Dataset::where('lila', '<=', $mean_lila)->where('bblr', false)->count();
+        $entropy_lila_dbwah_mean = - (($lila_dbwah_mean_ya / $lila_dbwah_mean) * log($lila_dbwah_mean_ya / $lila_dbwah_mean, 2)) - (($lila_dbwah_mean_tidak / $lila_dbwah_mean) * log($lila_dbwah_mean_tidak / $lila_dbwah_mean, 2));
+        $lila_datas_mean = Dataset::where('lila', '>', $mean_lila)->count();
+        $lila_datas_mean_ya = Dataset::where('lila', '>', $mean_lila)->where('bblr', true)->count();
+        $lila_datas_mean_tidak = Dataset::where('lila', '>', $mean_lila)->where('bblr', false)->count();
+        $entropy_lila_datas_mean = - (($lila_datas_mean_ya / $lila_datas_mean) * log($lila_datas_mean_ya / $lila_datas_mean, 2)) - (($lila_datas_mean_tidak / $lila_datas_mean) * log($lila_datas_mean_tidak / $lila_datas_mean, 2));
+        $gain_lila_mean = $entropy_total_bblr - (($lila_dbwah_mean / $total_kasus) * $entropy_lila_dbwah_mean) - (($lila_datas_mean / $total_kasus) * $entropy_lila_datas_mean);
+
+        // tinggi
+        $tinggi_dbwah_mean = Dataset::where('tinggi', '<=', $mean_tinggi)->count();
+        $tinggi_dbwah_mean_ya = Dataset::where('tinggi', '<=', $mean_tinggi)->where('bblr', true)->count();
+        $tinggi_dbwah_mean_tidak = Dataset::where('tinggi', '<=', $mean_tinggi)->where('bblr', false)->count();
+        $entropy_tinggi_dbwah_mean = - (($tinggi_dbwah_mean_ya / $tinggi_dbwah_mean) * log($tinggi_dbwah_mean_ya / $tinggi_dbwah_mean, 2)) - (($tinggi_dbwah_mean_tidak / $tinggi_dbwah_mean) * log($tinggi_dbwah_mean_tidak / $tinggi_dbwah_mean, 2));
+        $tinggi_datas_mean = Dataset::where('tinggi', '>', $mean_tinggi)->count();
+        $tinggi_datas_mean_ya = Dataset::where('tinggi', '>', $mean_tinggi)->where('bblr', true)->count();
+        $tinggi_datas_mean_tidak = Dataset::where('tinggi', '>', $mean_tinggi)->where('bblr', false)->count();
+        $entropy_tinggi_datas_mean = - (($tinggi_datas_mean_ya / $tinggi_datas_mean) * log($tinggi_datas_mean_ya / $tinggi_datas_mean, 2)) - (($tinggi_datas_mean_tidak / $tinggi_datas_mean) * log($tinggi_datas_mean_tidak / $tinggi_datas_mean, 2));
+        $gain_tinggi_mean = $entropy_total_bblr - (($tinggi_dbwah_mean / $total_kasus) * $entropy_tinggi_dbwah_mean) - (($tinggi_datas_mean / $total_kasus) * $entropy_tinggi_datas_mean);
+
         $validatedData['bblr_c45'] = false;
 
         Datauji::create($validatedData);
