@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\DataUjiBar;
+use App\Charts\DataUjiC45;
+use App\Charts\DataUjiNB;
+use App\Charts\DataUjiPie;
 use App\Models\Dataset;
 use App\Models\Datauji;
 use Illuminate\Http\Request;
@@ -12,11 +16,14 @@ class DashboardDataujiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(DataUjiBar $dataUjiBar, DataUjiNB $dataUjiNB, DataUjiC45 $dataUjiC45)
     {
         return view('dashboard.dataujis.index', [
             'title' => 'Data Uji',
             'dataujis' => Datauji::latest()->get(),
+            'chartbar' => $dataUjiBar->build(),
+            'chart_nb_pie' => $dataUjiNB->build(),
+            'chart_c45_pie' => $dataUjiC45->build(),
         ]);
     }
 
@@ -205,11 +212,16 @@ class DashboardDataujiController extends Controller
         // cari akar pohon keputusan dengan berdasarkan nilai gain tertinggi
         $gain_tertinggi = max($gain_umur_mean, $gain_umur_median, $gain_lila_mean, $gain_lila_median, $gain_tinggi_mean, $gain_tinggi_median);
         // apa isi dari $gain_tertinggi
-        if ($gain_tertinggi == $gain_umur_mean) {
-            // 
-        }
-
-
+        // if ($gain_tertinggi == $gain_umur_mean) {
+        //     if ($umur_dbwah_mean_ya->count() > $umur_datas_mean_ya->count()) {
+        //         if ($umur_dbwah_mean_ya > $umur_dbwah_mean_tidak) {
+        //             $validatedData['bblr_c45'] = true;
+        //         } else {
+        //             $validatedData['bblr_c45'] = false;
+        //         }
+        //     } else {
+        //     }
+        // } elseif ()
 
         $validatedData['bblr_c45'] = false;
 

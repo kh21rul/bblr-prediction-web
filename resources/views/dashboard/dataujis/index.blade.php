@@ -68,8 +68,9 @@
                                                                 <i class="fas fa-pencil-alt"></i>
                                                             </a>
                                                             <a href="#" type="button"
-                                                                class="btn btn-info btn-action mr-1" data-toggle="tooltip"
-                                                                title="Detail">
+                                                                class="btn btn-info btn-action mr-1 btn-detail"
+                                                                data-toggle="modal" data-target="#exampleModal"
+                                                                data-id="{{ $datauji->id }}" title="Detail">
                                                                 <i class="fas fa-eye"></i>
                                                             </a>
                                                             <form id="delete"
@@ -95,9 +96,130 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Data BBLR Berdasarkan Perhitungan Naive Bayes dan C4.5</h4>
+                            </div>
+                            <div class="card-body">
+                                {!! $chartbar->container() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Data BBLR Naive Bayes</h4>
+                            </div>
+                            <div class="card-body">
+                                {!! $chart_nb_pie->container() !!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Data BBLR C4.5</h4>
+                            </div>
+                            <div class="card-body">
+                                {!! $chart_c45_pie->container() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
+
+    {{-- modal info --}}
+    <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="{{ asset('dashmin/img/bayi.svg') }}" alt="Baby Image" class="img-fluid rounded mb-3">
+
+                    <div class="mb-3 row justify-content-center">
+                        <div class="col-12">
+                            <label for="naiveBayesStatus" class="font-weight-bold">Status BBLR Berdasarkan Naive
+                                Bayes</label>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center" role="group" aria-label="Status"
+                            id="naiveBayesStatus">
+                            <button type="button" id="nbButton" class="btn btn-danger">Teridentifikasi
+                                BBLR</button>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <label for="c45Status" class="font-weight-bold">Status BBLR Berdasarkan C4.5</label>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center" role="group" aria-label="Status"
+                            id="c45Status">
+                            <button type="button" class="btn btn-success" id="c45Button">Tidak Teridentifikasi
+                                BBLR</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- End Modal Info --}}
+
+    <script>
+        $(document).ready(function() {
+            // Tangani acara klik tombol detail
+            $('.btn-detail').on('click', function() {
+                // Dapatkan ID data dari atribut data-id
+                var dataId = $(this).data('id');
+
+                // Temukan data yang sesuai dari $dataujis
+                var dataUji = {!! json_encode($dataujis) !!}.find(d => d.id === dataId);
+
+                // Setel data modal sesuai dengan dataUji yang ditemukan
+                $('#exampleModal').find('.modal-title').text('Status Bayi Ibu ' + dataUji.nama);
+                // Ubah teks tombol berdasarkan kondisi
+                var c45ButtonText = dataUji.bblr_c45 ? 'Teridentifikasi BBLR' :
+                    'TIdak Teridentifikasi BBLR';
+                $('#c45Button').text(c45ButtonText);
+
+                var nbButtonText = dataUji.bblr_nb ? 'Teridentifikasi BBLR' :
+                    'TIdak Teridentifikasi BBLR';
+                $('#nbButton').text(nbButtonText);
+
+                // Ubah kelas tombol menjadi btn-danger jika bblr_c45 bernilai true
+                if (dataUji.bblr_c45) {
+                    $('#c45Button').removeClass('btn-success').addClass('btn-danger');
+                } else {
+                    $('#c45Button').removeClass('btn-danger').addClass('btn-success');
+                }
+                if (dataUji.bblr_nb) {
+                    $('#nbButton').removeClass('btn-success').addClass('btn-danger');
+                } else {
+                    $('#nbButton').removeClass('btn-danger').addClass('btn-success');
+                }
+
+                // Tampilkan modal
+                $('#exampleModal').modal('show');
+            });
+        });
+    </script>
+
+
+
     <script>
         function deleteButton() {
             event.preventDefault();
@@ -105,4 +227,11 @@
             form.submit();
         }
     </script>
+    <script src="{{ $chartbar->cdn() }}"></script>
+    <script src="{{ $chart_nb_pie->cdn() }}"></script>
+    <script src="{{ $chart_c45_pie->cdn() }}"></script>
+
+    {{ $chartbar->script() }}
+    {{ $chart_nb_pie->script() }}
+    {{ $chart_c45_pie->script() }}
 @endsection
