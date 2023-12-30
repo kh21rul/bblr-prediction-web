@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('umur');
             $table->string('lila');
             $table->string('tinggi');
-            $table->string('pbb_ya_nb');
-            $table->string('pbb_tidak_nb');
             $table->boolean('bblr_nb')->default(false);
             $table->boolean('bblr_c45')->default(false);
             $table->timestamps();

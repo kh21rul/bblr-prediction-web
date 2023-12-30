@@ -45,3 +45,6 @@ Route::resource('/dashboard/dataujis', DashboardDataujiController::class)->middl
     'update' => 'dashboard.dataujis.update',
     'destroy' => 'dashboard.dataujis.destroy',
 ]);
+
+Route::get('/dashboard/datauji/simpannb/{datauji}', [DashboardDataujiController::class, 'simpannb'])->middleware('auth')->name('dashboard.dataujis.simpannb');
+Route::get('/dashboard/datauji/simpanc45/{datauji}', [DashboardDataujiController::class, 'simpanc45'])->middleware('auth')->name('dashboard.dataujis.simpanc45');

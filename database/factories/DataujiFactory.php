@@ -21,8 +21,6 @@ class DataujiFactory extends Factory
             'umur' => $this->faker->numberBetween(0, 100),
             'lila' => $this->faker->numberBetween(0, 100),
             'tinggi' => $this->faker->numberBetween(0, 100),
-            'pbb_ya_nb' => $this->faker->numberBetween(0, 100),
-            'pbb_tidak_nb' => $this->faker->numberBetween(0, 100),
             'bblr_nb' => $this->faker->boolean,
             'bblr_c45' => $this->faker->boolean,
         ];

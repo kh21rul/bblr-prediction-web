@@ -31,6 +31,16 @@
                                 </div>
                             </div>
                         @endif
+                        @if (session()->has('error'))
+                            <div class="alert alert-danger alert-dismissible show fade">
+                                <div class="alert-body">
+                                    <button class="close" data-dismiss="alert">
+                                        <span>&times;</span>
+                                    </button>
+                                    {{ session('error') }}
+                                </div>
+                            </div>
+                        @endif
                         <div class="card">
                             <div class="card-header">
                                 <h4>Data Uji</h4>
@@ -171,8 +181,10 @@
                     </div>
                 </div>
 
-                <div class="modal-footer bg-whitesmoke br">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div class="modal-footer bg-whitesmoke br d-flex justify-content-between">
+                    <a href="#" id="simpanNB" class="btn btn-info text-left">Simpan Hasil Naive Bayes Ke
+                        Dataset</a>
+                    <a href="#" id="simpanC45" class="btn btn-info text-right">Simpan Hasil C4.5 Ke Dataset</a>
                 </div>
             </div>
         </div>
@@ -195,10 +207,11 @@
                 var c45ButtonText = dataUji.bblr_c45 ? 'Teridentifikasi BBLR' :
                     'TIdak Teridentifikasi BBLR';
                 $('#c45Button').text(c45ButtonText);
-
+                $('#simpanNB').attr('href', '/dashboard/datauji/simpannb/' + dataUji.id);
                 var nbButtonText = dataUji.bblr_nb ? 'Teridentifikasi BBLR' :
                     'TIdak Teridentifikasi BBLR';
                 $('#nbButton').text(nbButtonText);
+                $('#simpanC45').attr('href', '/dashboard/datauji/simpanc45/' + dataUji.id);
 
                 // Ubah kelas tombol menjadi btn-danger jika bblr_c45 bernilai true
                 if (dataUji.bblr_c45) {

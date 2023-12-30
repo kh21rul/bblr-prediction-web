@@ -100,12 +100,12 @@ class DashboardDataujiController extends Controller
         $likelihood_tidak = $probabilitas_umur_tidak * $probabilitas_lila_tidak * $probabilitas_tinggi_tidak * $probabilitas_bblr_tidak;
 
         // normalisasi
-        $validatedData['pbb_ya_nb'] = $likelihood_ya / ($likelihood_ya + $likelihood_tidak);
-        $validatedData['pbb_tidak_nb'] = $likelihood_tidak / ($likelihood_ya + $likelihood_tidak);
+        $pbb_ya_nb = $likelihood_ya / ($likelihood_ya + $likelihood_tidak);
+        $pbb_tidak_nb = $likelihood_tidak / ($likelihood_ya + $likelihood_tidak);
 
         // klasifikasi
-        $validatedData['bblr_nb'] = $validatedData['pbb_ya_nb'] > $validatedData['pbb_tidak_nb'] ? true : false;
-        // -- End Naive Bayes --
+        $validatedData['bblr_nb'] = $pbb_ya_nb > $pbb_tidak_nb ? true : false;
+        // End Naive Bayes
 
         // -- Start C4.5 --
         // cari mean dan median untuk nilai numerik
@@ -312,11 +312,13 @@ class DashboardDataujiController extends Controller
         $likelihood_tidak = $probabilitas_umur_tidak * $probabilitas_lila_tidak * $probabilitas_tinggi_tidak * $probabilitas_bblr_tidak;
 
         // normalisasi
-        $validatedData['pbb_ya_nb'] = $likelihood_ya / ($likelihood_ya + $likelihood_tidak);
-        $validatedData['pbb_tidak_nb'] = $likelihood_tidak / ($likelihood_ya + $likelihood_tidak);
+        $pbb_ya_nb = $likelihood_ya / ($likelihood_ya + $likelihood_tidak);
+        $pbb_tidak_nb = $likelihood_tidak / ($likelihood_ya + $likelihood_tidak);
+
+        // klasifikasi
+        $validatedData['bblr_nb'] = $pbb_ya_nb > $pbb_tidak_nb ? true : false;
         // End Naive Bayes
 
-        $validatedData['bblr_nb'] = $validatedData['pbb_ya_nb'] > $validatedData['pbb_tidak_nb'] ? true : false;
         $validatedData['bblr_c45'] = false;
 
         $datauji->update($validatedData);
@@ -332,5 +334,41 @@ class DashboardDataujiController extends Controller
         Datauji::destroy($datauji->id);
 
         return redirect()->route('dashboard.dataujis.index')->with('success', 'Data uji berhasil dihapus');
+    }
+
+    public function simpannb(Datauji $datauji)
+    {
+        // cek apakah data sudah ada di dataset
+        $data = Dataset::where('nama', $datauji->nama)->where('umur', $datauji->umur)->where('lila', $datauji->lila)->where('tinggi', $datauji->tinggi)->count();
+        if ($data > 0) {
+            return redirect()->back()->with('error', 'Data sudah ada di dataset');
+        }
+        $validatedData['nama'] = $datauji->nama;
+        $validatedData['umur'] = $datauji->umur;
+        $validatedData['lila'] = $datauji->lila;
+        $validatedData['tinggi'] = $datauji->tinggi;
+        $validatedData['bblr'] = $datauji->bblr_nb;
+
+        Dataset::create($validatedData);
+
+        return redirect()->route('dashboard.datasets.index')->with('success', 'Dataset baru berhasil ditambah');
+    }
+
+    public function simpanc45(Datauji $datauji)
+    {
+        // cek apakah data sudah ada di dataset
+        $data = Dataset::where('nama', $datauji->nama)->where('umur', $datauji->umur)->where('lila', $datauji->lila)->where('tinggi', $datauji->tinggi)->count();
+        if ($data > 0) {
+            return redirect()->back()->with('error', 'Data sudah ada di dataset');
+        }
+        $validatedData['nama'] = $datauji->nama;
+        $validatedData['umur'] = $datauji->umur;
+        $validatedData['lila'] = $datauji->lila;
+        $validatedData['tinggi'] = $datauji->tinggi;
+        $validatedData['bblr'] = $datauji->bblr_c45;
+
+        Dataset::create($validatedData);
+
+        return redirect()->route('dashboard.datasets.index')->with('success', 'Dataset baru berhasil ditambah');
     }
 }
