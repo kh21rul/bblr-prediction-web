@@ -209,19 +209,27 @@ class DashboardDataujiController extends Controller
         $entropy_tinggi_datas_median = - (($tinggi_datas_median_ya / $tinggi_datas_median) * log($tinggi_datas_median_ya / $tinggi_datas_median, 2)) - (($tinggi_datas_median_tidak / $tinggi_datas_median) * log($tinggi_datas_median_tidak / $tinggi_datas_median, 2));
         $gain_tinggi_median = $entropy_total_bblr - ((($tinggi_dbwah_median / $total_kasus) * $entropy_tinggi_dbwah_median) + (($tinggi_datas_median / $total_kasus) * $entropy_tinggi_datas_median));
 
-        // cari akar pohon keputusan dengan berdasarkan nilai gain tertinggi
+        // membuat pohon keputusan
         $gain_tertinggi = max($gain_umur_mean, $gain_umur_median, $gain_lila_mean, $gain_lila_median, $gain_tinggi_mean, $gain_tinggi_median);
-        // apa isi dari $gain_tertinggi
-        // if ($gain_tertinggi == $gain_umur_mean) {
-        //     if ($umur_dbwah_mean_ya->count() > $umur_datas_mean_ya->count()) {
-        //         if ($umur_dbwah_mean_ya > $umur_dbwah_mean_tidak) {
-        //             $validatedData['bblr_c45'] = true;
-        //         } else {
-        //             $validatedData['bblr_c45'] = false;
-        //         }
-        //     } else {
-        //     }
-        // } elseif ()
+
+        if ($gain_tertinggi == $gain_umur_mean) {
+            return "gain umur main";
+        } elseif ($gain_tertinggi == $gain_umur_median) {
+            return "gain umur median";
+        } elseif ($gain_tertinggi == $gain_lila_mean) {
+            return "gain lila mean";
+        } elseif ($gain_tertinggi == $gain_lila_median) {
+            if ($lila_dbwah_median_ya == 0) {
+            }
+        } elseif ($gain_tertinggi == $gain_tinggi_mean) {
+            return "gain tinggi mean";
+        } elseif ($gain_tertinggi == $gain_tinggi_median) {
+            return "gain tinggi median";
+        } else {
+            return "tidak ada";
+        }
+
+        ddd($gain_tertinggi);
 
         $validatedData['bblr_c45'] = false;
 
