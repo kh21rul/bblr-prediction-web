@@ -454,6 +454,11 @@ class DashboardDataujiController extends Controller
         // klasifikasi
         $hasil = $pbb_ya_nb > $pbb_tidak_nb ? true : false;
 
+        // debug mean
+        // dd('Mean umur ya: ' . $mean_umur_ya, 'Mean umur tidak: ' . $mean_umur_tidak, 'Mean lila ya: ' . $mean_lila_ya, 'Mean lila tidak: ' . $mean_lila_tidak, 'Mean tinggi ya: ' . $mean_tinggi_ya, 'Mean tinggi tidak: ' . $mean_tinggi_tidak);
+        // debug simpangan baku
+        dd('Simpangan baku umur ya: ' . $simpangan_baku_umur_ya, 'Simpangan baku umur tidak: ' . $simpangan_baku_umur_tidak, 'Simpangan baku lila ya: ' . $simpangan_baku_lila_ya, 'Simpangan baku lila tidak: ' . $simpangan_baku_lila_tidak, 'Simpangan baku tinggi ya: ' . $simpangan_baku_tinggi_ya, 'Simpangan baku tinggi tidak: ' . $simpangan_baku_tinggi_tidak);
+
         return $hasil;
     }
 
