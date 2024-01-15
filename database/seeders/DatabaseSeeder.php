@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('anindya123'),
         ]);
 
-        Datauji::factory(30)->create();
+        // Datauji::factory(30)->create();
 
         // panggil seeder DasasetSeeder
         $this->call(DatasetSeeder::class);

@@ -55,75 +55,146 @@ class DashboardDataujiController extends Controller
         $hasil = $this->gaintertinggi($dataset); // mencari gain ratio tertinggi
 
         if ($hasil['gain_tertinggi'] == $hasil['gain_umur_mean']) {
-            if ($hasil['umur_dbwah_mean_ya'] > $hasil['umur_dbwah_mean_tidak']) {
+            if ($hasil['umur_dbwah_mean_ya'] == 0) {
                 if ($request->umur <= $hasil['umur_datas_mean']) {
                     $validatedData['bblr_c45'] = false;
                 }
-            } elseif ($hasil['umur_dbwah_mean_tidak'] > $hasil['umur_dbwah_mean_ya']) {
+                $dataset = $dataset->where('umur', '>', $hasil['umur_datas_mean']);
+            } elseif ($hasil['umur_dbwah_mean_tidak'] == 0) {
                 if ($request->umur > $hasil['umur_dbwah_mean']) {
                     $validatedData['bblr_c45'] = true;
                 }
+                $dataset = $dataset->where('umur', '<=', $hasil['umur_datas_mean']);
+            }
+            if ($hasil['umur_datas_mean_ya'] == 0) {
+                if ($request->umur <= $hasil['umur_dbwah_mean']) {
+                    $validatedData['bblr_c45'] = false;
+                }
+                $dataset = $dataset->where('umur', '>', $hasil['umur_dbwah_mean']);
+            } elseif ($hasil['umur_datas_mean_tidak'] == 0) {
+                if ($request->umur > $hasil['umur_datas_mean']) {
+                    $validatedData['bblr_c45'] = true;
+                }
+                $dataset = $dataset->where('umur', '<=', $hasil['umur_dbwah_mean']);
             }
         } elseif ($hasil['gain_tertinggi'] == $hasil['gain_umur_median']) {
-            if ($hasil['umur_dbwah_median_ya'] > $hasil['umur_dbwah_median_tidak']) {
+            if ($hasil['umur_dbwah_median_ya'] == 0) {
                 if ($request->umur <= $hasil['umur_datas_median']) {
                     $validatedData['bblr_c45'] = false;
                 }
-            } elseif ($hasil['umur_dbwah_median_tidak'] > $hasil['umur_dbwah_median_ya']) {
+                $dataset = $dataset->where('umur', '>', $hasil['umur_datas_median']);
+            } elseif ($hasil['umur_dbwah_median_tidak'] == 0) {
                 if ($request->umur > $hasil['umur_dbwah_median']) {
                     $validatedData['bblr_c45'] = true;
                 }
+                $dataset = $dataset->where('umur', '<=', $hasil['umur_datas_median']);
+            }
+            if ($hasil['umur_datas_median_ya'] == 0) {
+                if ($request->umur <= $hasil['umur_dbwah_median']) {
+                    $validatedData['bblr_c45'] = false;
+                }
+                $dataset = $dataset->where('umur', '>', $hasil['umur_dbwah_median']);
+            } elseif ($hasil['umur_datas_median_tidak'] == 0) {
+                if ($request->umur > $hasil['umur_datas_median']) {
+                    $validatedData['bblr_c45'] = true;
+                }
+                $dataset = $dataset->where('umur', '<=', $hasil['umur_dbwah_median']);
             }
         } elseif ($hasil['gain_tertinggi'] == $hasil['gain_lila_mean']) {
-            if ($hasil['lila_dbwah_mean_ya'] > $hasil['lila_dbwah_mean_tidak']) {
+            if ($hasil['lila_dbwah_mean_ya'] == 0) {
                 if ($request->lila <= $hasil['lila_datas_mean']) {
                     $validatedData['bblr_c45'] = false;
                 }
                 $dataset = $dataset->where('lila', '>', $hasil['lila_datas_mean']);
-            } elseif ($hasil['lila_dbwah_mean_tidak'] > $hasil['lila_dbwah_mean_ya']) {
+            } elseif ($hasil['lila_dbwah_mean_tidak'] == 0) {
                 if ($request->lila > $hasil['lila_dbwah_mean']) {
                     $validatedData['bblr_c45'] = true;
                 }
+                $dataset = $dataset->where('lila', '<=', $hasil['lila_datas_mean']);
+            }
+            if ($hasil['lila_datas_mean_ya'] == 0) {
+                if ($request->lila <= $hasil['lila_dbwah_mean']) {
+                    $validatedData['bblr_c45'] = false;
+                }
+                $dataset = $dataset->where('lila', '>', $hasil['lila_dbwah_mean']);
+            } elseif ($hasil['lila_datas_mean_tidak'] == 0) {
+                if ($request->lila > $hasil['lila_datas_mean']) {
+                    $validatedData['bblr_c45'] = true;
+                }
+                $dataset = $dataset->where('lila', '<=', $hasil['lila_dbwah_mean']);
             }
         } elseif ($hasil['gain_tertinggi'] == $hasil['gain_lila_median']) {
-            if ($hasil['lila_dbwah_median_ya'] > $hasil['lila_dbwah_median_tidak']) {
+            if ($hasil['lila_dbwah_median_ya'] == 0) {
                 if ($request->lila <= $hasil['lila_datas_median']) {
                     $validatedData['bblr_c45'] = false;
                 }
                 $dataset = $dataset->where('lila', '>', $hasil['lila_datas_median']);
-            } elseif ($hasil['lila_dbwah_median_tidak'] > $hasil['lila_dbwah_median_ya']) {
+            } elseif ($hasil['lila_dbwah_median_tidak'] == 0) {
                 if ($request->lila > $hasil['lila_dbwah_median']) {
                     $validatedData['bblr_c45'] = true;
                 }
                 $dataset = $dataset->where('lila', '<=', $hasil['lila_datas_median']);
             }
+            if ($hasil['lila_datas_median_ya'] == 0) {
+                if ($request->lila <= $hasil['lila_dbwah_median']) {
+                    $validatedData['bblr_c45'] = false;
+                }
+                $dataset = $dataset->where('lila', '>', $hasil['lila_dbwah_median']);
+            } elseif ($hasil['lila_datas_median_tidak'] == 0) {
+                if ($request->lila > $hasil['lila_datas_median']) {
+                    $validatedData['bblr_c45'] = true;
+                }
+                $dataset = $dataset->where('lila', '<=', $hasil['lila_dbwah_median']);
+            }
         } elseif ($hasil['gain_tertinggi'] == $hasil['gain_tinggi_mean']) {
-            if ($hasil['tinggi_dbwah_mean_ya'] > $hasil['tinggi_dbwah_mean_tidak']) {
+            if ($hasil['tinggi_dbwah_mean_ya'] == 0) {
                 if ($request->tinggi <= $hasil['tinggi_datas_mean']) {
                     $validatedData['bblr_c45'] = false;
                 }
                 $dataset = $dataset->where('tinggi', '>', $hasil['tinggi_datas_mean']);
-            } elseif ($hasil['tinggi_dbwah_mean_tidak'] > $hasil['tinggi_dbwah_mean_ya']) {
+            } elseif ($hasil['tinggi_dbwah_mean_tidak'] == 0) {
                 if ($request->tinggi > $hasil['tinggi_dbwah_mean']) {
                     $validatedData['bblr_c45'] = true;
                 }
                 $dataset = $dataset->where('tinggi', '<=', $hasil['tinggi_datas_mean']);
             }
+            if ($hasil['tinggi_datas_mean_ya'] == 0) {
+                if ($request->tinggi <= $hasil['tinggi_dbwah_mean']) {
+                    $validatedData['bblr_c45'] = false;
+                }
+                $dataset = $dataset->where('tinggi', '>', $hasil['tinggi_dbwah_mean']);
+            } elseif ($hasil['tinggi_datas_mean_tidak'] == 0) {
+                if ($request->tinggi > $hasil['tinggi_datas_mean']) {
+                    $validatedData['bblr_c45'] = true;
+                }
+                $dataset = $dataset->where('tinggi', '<=', $hasil['tinggi_dbwah_mean']);
+            }
         } elseif ($hasil['gain_tertinggi'] == $hasil['gain_tinggi_median']) {
-            if ($hasil['tinggi_dbwah_median_ya'] > $hasil['tinggi_dbwah_median_tidak']) {
+            if ($hasil['tinggi_dbwah_median_ya'] == 0) {
                 if ($request->tinggi <= $hasil['tinggi_datas_median']) {
                     $validatedData['bblr_c45'] = false;
                 }
                 $dataset = $dataset->where('tinggi', '>', $hasil['tinggi_datas_median']);
-            } elseif ($hasil['tinggi_dbwah_median_tidak'] > $hasil['tinggi_dbwah_median_ya']) {
+            } elseif ($hasil['tinggi_dbwah_median_tidak'] == 0) {
                 if ($request->tinggi > $hasil['tinggi_dbwah_median']) {
                     $validatedData['bblr_c45'] = true;
                 }
                 $dataset = $dataset->where('tinggi', '<=', $hasil['tinggi_datas_median']);
             }
-        } else {
-            $validatedData['bblr_c45'] = false;
+            if ($hasil['tinggi_datas_median_ya'] == 0) {
+                if ($request->tinggi <= $hasil['tinggi_dbwah_median']) {
+                    $validatedData['bblr_c45'] = false;
+                }
+                $dataset = $dataset->where('tinggi', '>', $hasil['tinggi_dbwah_median']);
+            } elseif ($hasil['tinggi_datas_median_tidak'] == 0) {
+                if ($request->tinggi > $hasil['tinggi_datas_median']) {
+                    $validatedData['bblr_c45'] = true;
+                }
+                $dataset = $dataset->where('tinggi', '<=', $hasil['tinggi_dbwah_median']);
+            }
         }
+
+        // ddd($dataset->count());
 
         Datauji::create($validatedData);
 
@@ -170,74 +241,143 @@ class DashboardDataujiController extends Controller
         $hasil = $this->gaintertinggi($dataset); // mencari gain ratio tertinggi
 
         if ($hasil['gain_tertinggi'] == $hasil['gain_umur_mean']) {
-            if ($hasil['umur_dbwah_mean_ya'] > $hasil['umur_dbwah_mean_tidak']) {
+            if ($hasil['umur_dbwah_mean_ya'] == 0) {
                 if ($request->umur <= $hasil['umur_datas_mean']) {
                     $validatedData['bblr_c45'] = false;
                 }
-            } elseif ($hasil['umur_dbwah_mean_tidak'] > $hasil['umur_dbwah_mean_ya']) {
+                $dataset = $dataset->where('umur', '>', $hasil['umur_datas_mean']);
+            } elseif ($hasil['umur_dbwah_mean_tidak'] == 0) {
                 if ($request->umur > $hasil['umur_dbwah_mean']) {
                     $validatedData['bblr_c45'] = true;
                 }
+                $dataset = $dataset->where('umur', '<=', $hasil['umur_datas_mean']);
+            }
+            if ($hasil['umur_datas_mean_ya'] == 0) {
+                if ($request->umur <= $hasil['umur_dbwah_mean']) {
+                    $validatedData['bblr_c45'] = false;
+                }
+                $dataset = $dataset->where('umur', '>', $hasil['umur_dbwah_mean']);
+            } elseif ($hasil['umur_datas_mean_tidak'] == 0) {
+                if ($request->umur > $hasil['umur_datas_mean']) {
+                    $validatedData['bblr_c45'] = true;
+                }
+                $dataset = $dataset->where('umur', '<=', $hasil['umur_dbwah_mean']);
             }
         } elseif ($hasil['gain_tertinggi'] == $hasil['gain_umur_median']) {
-            if ($hasil['umur_dbwah_median_ya'] > $hasil['umur_dbwah_median_tidak']) {
+            if ($hasil['umur_dbwah_median_ya'] == 0) {
                 if ($request->umur <= $hasil['umur_datas_median']) {
                     $validatedData['bblr_c45'] = false;
                 }
-            } elseif ($hasil['umur_dbwah_median_tidak'] > $hasil['umur_dbwah_median_ya']) {
+                $dataset = $dataset->where('umur', '>', $hasil['umur_datas_median']);
+            } elseif ($hasil['umur_dbwah_median_tidak'] == 0) {
                 if ($request->umur > $hasil['umur_dbwah_median']) {
                     $validatedData['bblr_c45'] = true;
                 }
+                $dataset = $dataset->where('umur', '<=', $hasil['umur_datas_median']);
+            }
+            if ($hasil['umur_datas_median_ya'] == 0) {
+                if ($request->umur <= $hasil['umur_dbwah_median']) {
+                    $validatedData['bblr_c45'] = false;
+                }
+                $dataset = $dataset->where('umur', '>', $hasil['umur_dbwah_median']);
+            } elseif ($hasil['umur_datas_median_tidak'] == 0) {
+                if ($request->umur > $hasil['umur_datas_median']) {
+                    $validatedData['bblr_c45'] = true;
+                }
+                $dataset = $dataset->where('umur', '<=', $hasil['umur_dbwah_median']);
             }
         } elseif ($hasil['gain_tertinggi'] == $hasil['gain_lila_mean']) {
-            if ($hasil['lila_dbwah_mean_ya'] > $hasil['lila_dbwah_mean_tidak']) {
+            if ($hasil['lila_dbwah_mean_ya'] == 0) {
                 if ($request->lila <= $hasil['lila_datas_mean']) {
                     $validatedData['bblr_c45'] = false;
                 }
                 $dataset = $dataset->where('lila', '>', $hasil['lila_datas_mean']);
-            } elseif ($hasil['lila_dbwah_mean_tidak'] > $hasil['lila_dbwah_mean_ya']) {
+            } elseif ($hasil['lila_dbwah_mean_tidak'] == 0) {
                 if ($request->lila > $hasil['lila_dbwah_mean']) {
                     $validatedData['bblr_c45'] = true;
                 }
+                $dataset = $dataset->where('lila', '<=', $hasil['lila_datas_mean']);
+            }
+            if ($hasil['lila_datas_mean_ya'] == 0) {
+                if ($request->lila <= $hasil['lila_dbwah_mean']) {
+                    $validatedData['bblr_c45'] = false;
+                }
+                $dataset = $dataset->where('lila', '>', $hasil['lila_dbwah_mean']);
+            } elseif ($hasil['lila_datas_mean_tidak'] == 0) {
+                if ($request->lila > $hasil['lila_datas_mean']) {
+                    $validatedData['bblr_c45'] = true;
+                }
+                $dataset = $dataset->where('lila', '<=', $hasil['lila_dbwah_mean']);
             }
         } elseif ($hasil['gain_tertinggi'] == $hasil['gain_lila_median']) {
-            if ($hasil['lila_dbwah_median_ya'] > $hasil['lila_dbwah_median_tidak']) {
+            if ($hasil['lila_dbwah_median_ya'] == 0) {
                 if ($request->lila <= $hasil['lila_datas_median']) {
                     $validatedData['bblr_c45'] = false;
                 }
                 $dataset = $dataset->where('lila', '>', $hasil['lila_datas_median']);
-            } elseif ($hasil['lila_dbwah_median_tidak'] > $hasil['lila_dbwah_median_ya']) {
+            } elseif ($hasil['lila_dbwah_median_tidak'] == 0) {
                 if ($request->lila > $hasil['lila_dbwah_median']) {
                     $validatedData['bblr_c45'] = true;
                 }
                 $dataset = $dataset->where('lila', '<=', $hasil['lila_datas_median']);
             }
+            if ($hasil['lila_datas_median_ya'] == 0) {
+                if ($request->lila <= $hasil['lila_dbwah_median']) {
+                    $validatedData['bblr_c45'] = false;
+                }
+                $dataset = $dataset->where('lila', '>', $hasil['lila_dbwah_median']);
+            } elseif ($hasil['lila_datas_median_tidak'] == 0) {
+                if ($request->lila > $hasil['lila_datas_median']) {
+                    $validatedData['bblr_c45'] = true;
+                }
+                $dataset = $dataset->where('lila', '<=', $hasil['lila_dbwah_median']);
+            }
         } elseif ($hasil['gain_tertinggi'] == $hasil['gain_tinggi_mean']) {
-            if ($hasil['tinggi_dbwah_mean_ya'] > $hasil['tinggi_dbwah_mean_tidak']) {
+            if ($hasil['tinggi_dbwah_mean_ya'] == 0) {
                 if ($request->tinggi <= $hasil['tinggi_datas_mean']) {
                     $validatedData['bblr_c45'] = false;
                 }
                 $dataset = $dataset->where('tinggi', '>', $hasil['tinggi_datas_mean']);
-            } elseif ($hasil['tinggi_dbwah_mean_tidak'] > $hasil['tinggi_dbwah_mean_ya']) {
+            } elseif ($hasil['tinggi_dbwah_mean_tidak'] == 0) {
                 if ($request->tinggi > $hasil['tinggi_dbwah_mean']) {
                     $validatedData['bblr_c45'] = true;
                 }
                 $dataset = $dataset->where('tinggi', '<=', $hasil['tinggi_datas_mean']);
             }
+            if ($hasil['tinggi_datas_mean_ya'] == 0) {
+                if ($request->tinggi <= $hasil['tinggi_dbwah_mean']) {
+                    $validatedData['bblr_c45'] = false;
+                }
+                $dataset = $dataset->where('tinggi', '>', $hasil['tinggi_dbwah_mean']);
+            } elseif ($hasil['tinggi_datas_mean_tidak'] == 0) {
+                if ($request->tinggi > $hasil['tinggi_datas_mean']) {
+                    $validatedData['bblr_c45'] = true;
+                }
+                $dataset = $dataset->where('tinggi', '<=', $hasil['tinggi_dbwah_mean']);
+            }
         } elseif ($hasil['gain_tertinggi'] == $hasil['gain_tinggi_median']) {
-            if ($hasil['tinggi_dbwah_median_ya'] > $hasil['tinggi_dbwah_median_tidak']) {
+            if ($hasil['tinggi_dbwah_median_ya'] == 0) {
                 if ($request->tinggi <= $hasil['tinggi_datas_median']) {
                     $validatedData['bblr_c45'] = false;
                 }
                 $dataset = $dataset->where('tinggi', '>', $hasil['tinggi_datas_median']);
-            } elseif ($hasil['tinggi_dbwah_median_tidak'] > $hasil['tinggi_dbwah_median_ya']) {
+            } elseif ($hasil['tinggi_dbwah_median_tidak'] == 0) {
                 if ($request->tinggi > $hasil['tinggi_dbwah_median']) {
                     $validatedData['bblr_c45'] = true;
                 }
                 $dataset = $dataset->where('tinggi', '<=', $hasil['tinggi_datas_median']);
             }
-        } else {
-            $validatedData['bblr_c45'] = false;
+            if ($hasil['tinggi_datas_median_ya'] == 0) {
+                if ($request->tinggi <= $hasil['tinggi_dbwah_median']) {
+                    $validatedData['bblr_c45'] = false;
+                }
+                $dataset = $dataset->where('tinggi', '>', $hasil['tinggi_dbwah_median']);
+            } elseif ($hasil['tinggi_datas_median_tidak'] == 0) {
+                if ($request->tinggi > $hasil['tinggi_datas_median']) {
+                    $validatedData['bblr_c45'] = true;
+                }
+                $dataset = $dataset->where('tinggi', '<=', $hasil['tinggi_dbwah_median']);
+            }
         }
         // -- End C4.5 --
 
@@ -313,6 +453,11 @@ class DashboardDataujiController extends Controller
 
         // klasifikasi
         $hasil = $pbb_ya_nb > $pbb_tidak_nb ? true : false;
+
+        // debug mean
+        // dd('Mean umur ya: ' . $mean_umur_ya, 'Mean umur tidak: ' . $mean_umur_tidak, 'Mean lila ya: ' . $mean_lila_ya, 'Mean lila tidak: ' . $mean_lila_tidak, 'Mean tinggi ya: ' . $mean_tinggi_ya, 'Mean tinggi tidak: ' . $mean_tinggi_tidak);
+        // debug simpangan baku
+        dd('Simpangan baku umur ya: ' . $simpangan_baku_umur_ya, 'Simpangan baku umur tidak: ' . $simpangan_baku_umur_tidak, 'Simpangan baku lila ya: ' . $simpangan_baku_lila_ya, 'Simpangan baku lila tidak: ' . $simpangan_baku_lila_tidak, 'Simpangan baku tinggi ya: ' . $simpangan_baku_tinggi_ya, 'Simpangan baku tinggi tidak: ' . $simpangan_baku_tinggi_tidak);
 
         return $hasil;
     }
