@@ -174,92 +174,92 @@ class DashboardDataujiController extends Controller
         $hasil = $this->gaintertinggi($dataset); // mencari gain ratio tertinggi
 
         if ($hasil['gain_tertinggi'] == $hasil['gain_umur_mean']) {
-            if ($umur <= $hasil['umur_datas_mean']) {
+            if ($umur <= $hasil['mean_umur']) {
                 if ($hasil['umur_dbwah_mean_ya'] > $hasil['umur_dbwah_mean_tidak']) {
-                    $validatedData['bblr_c45'] = true;
+                    $bblr = true;
                 } elseif ($hasil['umur_dbwah_mean_ya'] < $hasil['umur_dbwah_mean_tidak']) {
-                    $validatedData['bblr_c45'] = false;
+                    $bblr = false;
                 }
-            } elseif ($umur > $hasil['umur_datas_mean']) {
+            } elseif ($umur > $hasil['mean_umur']) {
                 if ($hasil['umur_datas_mean_ya'] > $hasil['umur_datas_mean_tidak']) {
-                    $validatedData['bblr_c45'] = true;
+                    $bblr = true;
                 } elseif ($hasil['umur_datas_mean_ya'] < $hasil['umur_datas_mean_tidak']) {
-                    $validatedData['bblr_c45'] = false;
+                    $bblr = false;
                 }
             }
         } elseif ($hasil['gain_tertinggi'] == $hasil['gain_umur_median']) {
-            if ($umur <= $hasil['umur_datas_median']) {
+            if ($umur <= $hasil['median_umur']) {
                 if ($hasil['umur_dbwah_median_ya'] > $hasil['umur_dbwah_median_tidak']) {
-                    $validatedData['bblr_c45'] = true;
+                    $bblr = true;
                 } elseif ($hasil['umur_dbwah_median_ya'] < $hasil['umur_dbwah_median_tidak']) {
-                    $validatedData['bblr_c45'] = false;
+                    $bblr = false;
                 }
-            } elseif ($umur > $hasil['umur_datas_median']) {
+            } elseif ($umur > $hasil['median_umur']) {
                 if ($hasil['umur_datas_median_ya'] > $hasil['umur_datas_median_tidak']) {
-                    $validatedData['bblr_c45'] = true;
+                    $bblr = true;
                 } elseif ($hasil['umur_datas_median_ya'] < $hasil['umur_datas_median_tidak']) {
-                    $validatedData['bblr_c45'] = false;
+                    $bblr = false;
                 }
             }
         } elseif ($hasil['gain_tertinggi'] == $hasil['gain_lila_mean']) {
-            if ($lila <= $hasil['lila_datas_mean']) {
+            if ($lila <= $hasil['mean_lila']) {
                 if ($hasil['lila_dbwah_mean_ya'] > $hasil['lila_dbwah_mean_tidak']) {
-                    $validatedData['bblr_c45'] = true;
+                    $bblr = true;
                 } elseif ($hasil['lila_dbwah_mean_ya'] < $hasil['lila_dbwah_mean_tidak']) {
-                    $validatedData['bblr_c45'] = false;
+                    $bblr = false;
                 }
-            } elseif ($lila > $hasil['lila_datas_mean']) {
+            } elseif ($lila > $hasil['mean_lila']) {
                 if ($hasil['lila_datas_mean_ya'] > $hasil['lila_datas_mean_tidak']) {
-                    $validatedData['bblr_c45'] = true;
+                    $bblr = true;
                 } elseif ($hasil['lila_datas_mean_ya'] < $hasil['lila_datas_mean_tidak']) {
-                    $validatedData['bblr_c45'] = false;
+                    $bblr = false;
                 }
             }
         } elseif ($hasil['gain_tertinggi'] == $hasil['gain_lila_median']) {
-            if ($lila <= $hasil['lila_datas_median']) {
+            if ($lila <= $hasil['median_lila']) {
                 if ($hasil['lila_dbwah_median_ya'] > $hasil['lila_dbwah_median_tidak']) {
-                    $validatedData['bblr_c45'] = true;
+                    $bblr = true;
                 } elseif ($hasil['lila_dbwah_median_ya'] < $hasil['lila_dbwah_median_tidak']) {
-                    $validatedData['bblr_c45'] = false;
+                    $bblr = false;
                 }
-            } elseif ($lila > $hasil['lila_datas_median']) {
+            } elseif ($lila > $hasil['median_lila']) {
                 if ($hasil['lila_datas_median_ya'] > $hasil['lila_datas_median_tidak']) {
-                    $validatedData['bblr_c45'] = true;
+                    $bblr = true;
                 } elseif ($hasil['lila_datas_median_ya'] < $hasil['lila_datas_median_tidak']) {
-                    $validatedData['bblr_c45'] = false;
+                    $bblr = false;
                 }
             }
         } elseif ($hasil['gain_tertinggi'] == $hasil['gain_tinggi_mean']) {
-            if ($tinggi <= $hasil['tinggi_datas_mean']) {
+            if ($tinggi <= $hasil['mean_tinggi']) {
                 if ($hasil['tinggi_dbwah_mean_ya'] > $hasil['tinggi_dbwah_mean_tidak']) {
-                    $validatedData['bblr_c45'] = true;
+                    $bblr = true;
                 } elseif ($hasil['tinggi_dbwah_mean_ya'] < $hasil['tinggi_dbwah_mean_tidak']) {
-                    $validatedData['bblr_c45'] = false;
+                    $bblr = false;
                 }
-            } elseif ($tinggi > $hasil['tinggi_datas_mean']) {
+            } elseif ($tinggi > $hasil['mean_tinggi']) {
                 if ($hasil['tinggi_datas_mean_ya'] > $hasil['tinggi_datas_mean_tidak']) {
-                    $validatedData['bblr_c45'] = true;
+                    $bblr = true;
                 } elseif ($hasil['tinggi_datas_mean_ya'] < $hasil['tinggi_datas_mean_tidak']) {
-                    $validatedData['bblr_c45'] = false;
+                    $bblr = false;
                 }
             }
         } elseif ($hasil['gain_tertinggi'] == $hasil['gain_tinggi_median']) {
-            if ($tinggi <= $hasil['tinggi_datas_median']) {
+            if ($tinggi <= $hasil['median_tinggi']) {
                 if ($hasil['tinggi_dbwah_median_ya'] > $hasil['tinggi_dbwah_median_tidak']) {
-                    $validatedData['bblr_c45'] = true;
+                    $bblr = true;
                 } elseif ($hasil['tinggi_dbwah_median_ya'] < $hasil['tinggi_dbwah_median_tidak']) {
-                    $validatedData['bblr_c45'] = false;
+                    $bblr = false;
                 }
-            } elseif ($tinggi > $hasil['tinggi_datas_median']) {
+            } elseif ($tinggi > $hasil['median_tinggi']) {
                 if ($hasil['tinggi_datas_median_ya'] > $hasil['tinggi_datas_median_tidak']) {
-                    $validatedData['bblr_c45'] = true;
+                    $bblr = true;
                 } elseif ($hasil['tinggi_datas_median_ya'] < $hasil['tinggi_datas_median_tidak']) {
-                    $validatedData['bblr_c45'] = false;
+                    $bblr = false;
                 }
             }
         }
 
-        return $validatedData['bblr_c45'];
+        return $bblr;
     }
 
     public function gaintertinggi($dataset) // mencari gain ratio tertinggi untuk algoritma C4.5
@@ -370,6 +370,13 @@ class DashboardDataujiController extends Controller
 
         return [
             'gain_tertinggi' => $gain_tertinggi,
+
+            'mean_umur' => $mean_umur,
+            'median_umur' => $median_umur,
+            'mean_lila' => $mean_lila,
+            'median_lila' => $median_lila,
+            'mean_tinggi' => $mean_tinggi,
+            'median_tinggi' => $median_tinggi,
 
             'gain_umur_mean' => $gain_umur_mean,
             'umur_dbwah_mean' => $umur_dbwah_mean,
